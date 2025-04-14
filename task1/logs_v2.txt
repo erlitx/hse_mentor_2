@@ -1,0 +1,15 @@
+log_id	transaction_id	category	log_time
+1001	1	authentication	2023-12-01 10:00:00
+1002	1	authorization	2023-12-01 10:01:00
+1003	2	payment	2023-12-01 11:15:00
+1004	3	authentication	2023-12-02 12:00:00
+1005	3	fraud_alert	2023-12-02 12:05:00
+1006	4	payment	2023-12-02 13:00:00
+1007	4	payment	2023-12-02 13:01:00
+1008	5	payment	2023-12-03 09:30:00
+1009	6	payment	2023-12-03 10:00:00
+1010	7	fraud_alert	2023-12-03 10:10:00
+1011	7	authentication	2023-12-03 10:11:00
+1012	8	payment	2023-12-04 14:00:00
+1013	9	payment	2023-12-04 14:30:00
+1014	10	authorization	2023-12-05 15:00:00

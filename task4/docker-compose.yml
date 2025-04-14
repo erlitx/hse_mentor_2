@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  airflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
+      - AIRFLOW__WEBSERVER__SECRET_KEY=my_secret_key
+      - HIVE_HOST=hive-metastore.default.svc.cluster.local
+      - HIVE_PORT=10000
+      - HIVE_USER=hive
+      - HIVE_PASSWORD=hive_password
+      - CLICKHOUSE_HOST=clickhouse-server
+      - CLICKHOUSE_PORT=9000
+      - CLICKHOUSE_USER=default
+      - CLICKHOUSE_PASSWORD=my_secret
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    command: bash -c "airflow db init && airflow users create --username admin --password admin --firstname Air --lastname Flow --role Admin --email admin@example.com && airflow webserver"
+
+  clickhouse-server:
+    image: yandex/clickhouse-server:latest
+    ports:
+      - "8123:8123" 
+      - "9000:9000" 
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+
+volumes:
+  clickhouse-data:
